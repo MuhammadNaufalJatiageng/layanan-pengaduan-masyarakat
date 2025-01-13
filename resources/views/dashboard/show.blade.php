@@ -88,11 +88,11 @@
             <p>
                 {{ $pengaduan->isi_laporan }}
             </p>
+            @if ($pengaduan->lampiran)
+                <a href="{{ asset('storage/' . $pengaduan->lampiran) }}" class="btn btn-warning" download>Unduh lampiran</a>
+            @endif
             <small class="d-flex justify-content-end text-muted">{{ $pengaduan->created_at->diffForHumans() }}</small>
         </div>
-        {{-- <div class="report-content mt-4">
-            <h4>Lampiran</h4>
-        </div> --}}
         <div class="report-content mt-4">
             <h4>Respon</h4>
             <div class="card">

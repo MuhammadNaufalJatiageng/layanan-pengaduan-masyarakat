@@ -42,19 +42,26 @@ class PengaduanController extends Controller
             'judul' => 'required|max:20|min:3',
             'kategori_id' => 'required',
             'isi_laporan' => 'required|min:10',
-            // 'lampiran' => 'required|mimes:pdf,jpg,jpeg,png|max:2048',
+            'lampiran' => 'mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
 
         $validated['user_id'] = Auth::user()->id;
 
-        // $file = time().'_'.$request->lampiran->getClientOriginalName();
-        // $path = $request->file('lampiran')->storeAs('lampiran', $file);
-        // $validated['lampiran'] = $file;
+        if ($request->file('lampiran')) {
+            $lampiranPath = $request->file('lampiran')->store('lampiran', 'public');
+            $validated['lampiran'] = $lampiranPath;
+        }
         
         $pengaduan = Pengaduan::create($validated);
         $id = Crypt::encrypt($pengaduan->id);
         
         if ($pengaduan) {
+            $notif['pengaduan_id'] = $pengaduan->id;
+            $notif['user_id'] = Auth::user()->id;
+            $notif['is_read_user'] = true;
+            $notif['judul'] = 'Laporan baru!';
+            Respon::create($notif);
+
             return redirect()->route('pengaduan')->with('success', 'Pengaduan berhasil dibuat.')->with('id', $id);
         } else {
             return redirect()->route('pengaduan')->with('error', 'Terjadi kesalahan saat membuat pengaduan.');

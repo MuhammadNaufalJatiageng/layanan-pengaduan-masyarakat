@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('pengaduan_id');
-            $table->text('pesan')->nullable();
-            $table->text('judul')->nullable();
+            $table->string('pesan')->nullable();
+            $table->string('judul')->nullable();
             $table->boolean('is_read_user')->default(false);
             $table->boolean('is_read_admin')->default(false);
             $table->timestamps();

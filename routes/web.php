@@ -7,6 +7,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\ResponController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/masuk', [AuthenticationController::class, 'login'])->name('login');
@@ -22,6 +23,7 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
     Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
 });
+
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/', [DashboardController::class, 'search'])->name('search');

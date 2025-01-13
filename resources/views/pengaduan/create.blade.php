@@ -74,14 +74,14 @@
                             class="form-control @error('isi_laporan')
                             is-invalid
                         @enderror"
-                            id="isi_laporan" rows="3" name="isi_laporan" value="{{ old('isi_laporan') }}"></textarea>
+                            id="isi_laporan" rows="3" name="isi_laporan">{{ old('isi_laporan') }}</textarea>
                         @error('isi_laporan')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
-                    {{-- <div class="mb-3">
+                    <div class="mb-3">
                         <label for="lampiran" class="form-label">Lampiran <small class="text-muted">( pdf,png,jpg.jpeg
                                 )</small></label>
                         <input
@@ -94,7 +94,7 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                    </div> --}}
+                    </div>
                 </div>
             </div>
 
